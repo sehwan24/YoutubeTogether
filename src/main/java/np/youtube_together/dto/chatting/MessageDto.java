@@ -12,7 +12,13 @@ public class MessageDto {
         ENTER, TALK
     }
 
+    public enum RunningType {
+        RUN, STOP
+    }
+
     private MessageType type;
+    private RunningType runningType;
+    private int count;
     private String roomId;
     private String sender;
     private String message;

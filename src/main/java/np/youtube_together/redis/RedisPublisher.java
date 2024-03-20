@@ -14,6 +14,7 @@ public class RedisPublisher {
     private final RedisTemplate<String, Object> redisTemplate;
 
     public void publish(ChannelTopic topic, MessageDto messageDto) {
+        System.out.println("messageDto = " + messageDto);
         redisTemplate.convertAndSend(topic.getTopic(), messageDto);
     }
 
