@@ -26,13 +26,25 @@ public class MessageController {
 
         System.out.println("Hi");
 
-        System.out.println(redisCacheRepository.getSenderFromRedis());
-        System.out.println("messageDto.getSender() = " + messageDto.getSender());
+        System.out.println("messageDto = " + messageDto.getMessage());
 
-        List<String> senderFromRedis = redisCacheRepository.getSenderFromRedis();
+        System.out.println("cache_data = " + redisCacheRepository.getSenderFromRedis());
 
-        if (senderFromRedis.get(0) == messageDto.getSender()) {
+        messageDto.setCount(Integer.parseInt(redisCacheRepository.getSenderFromRedis()) + 1);
+
+        //redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
+
+        if (messageDto.getCount() == 1) {
+            //4의 배수는 또 통과 시켜
             redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
+        } else if (messageDto.getCount() == 3) {
+            redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
+        } else if (messageDto.getCount() == 6) {
+            redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
+        } else {
+            System.out.println("messageDto.getMessage() = " + messageDto.getMessage());
+            redisCacheRepository.plusCount();
+            System.out.println("cache_data2 = " + redisCacheRepository.getSenderFromRedis());
         }
 
     }

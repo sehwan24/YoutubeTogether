@@ -63,17 +63,14 @@ public class RedisCacheRepository {
     }
 
 
-
-
-    public List<String> getSenderFromRedis() {
-        // 리스트의 모든 요소를 가져오기
-        List<Object> rawValues = redisTemplate.opsForList().range(RECENT_MESSAGES_KEY, 0, -1);
-        List<String> stringValues = rawValues.stream()
-                .map(Object::toString)
-                .collect(Collectors.toList());
-        return stringValues;
+    public String getSenderFromRedis() {
+        return (String) redisTemplate.opsForValue().get("COUNT_KEY");
     }
 
+
+    public void plusCount() {
+        redisTemplate.opsForValue().set("COUNT_KEY", Integer.parseInt((String) redisTemplate.opsForValue().get("COUNT_KEY")) + 1);
+    }
 
 
 
