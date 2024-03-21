@@ -34,12 +34,9 @@ public class MessageController {
 
         //redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
 
-        if (messageDto.getCount() == 1) {
-            //4의 배수는 또 통과 시켜
+        if (messageDto.getCount()%5 == 1) {
             redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
-        } else if (messageDto.getCount() == 3) {
-            redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
-        } else if (messageDto.getCount() == 6) {
+        } else if (messageDto.getCount()%5 == 3) {
             redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
         } else {
             System.out.println("messageDto.getMessage() = " + messageDto.getMessage());
