@@ -9,16 +9,15 @@ import lombok.Setter;
 public class MessageDto {
 
     public enum MessageType {
-        ENTER, TALK
+        ENTER, TALK, VIDEO
     }
 
     public enum RunningType {
-        RUN, STOP
+        RUN, STOP, NO
     }
 
     private MessageType type;
     private RunningType runningType;
-    private int count;
     private String roomId;
     private String sender;
     private String message;

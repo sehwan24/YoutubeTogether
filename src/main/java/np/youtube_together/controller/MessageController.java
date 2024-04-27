@@ -21,29 +21,9 @@ public class MessageController {
         if (MessageDto.MessageType.ENTER.equals(messageDto.getType())) {
             redisCacheRepository.enterChattingRoom(messageDto.getRoomId());
             messageDto.setMessage(messageDto.getSender() + "님이 입장하셨습니다.");
-            System.out.println("messageDto = " + messageDto);
         }
 
-        System.out.println("Hi");
-
-        System.out.println("messageDto = " + messageDto.getMessage());
-
-        System.out.println("cache_data = " + redisCacheRepository.getSenderFromRedis());
-
-        messageDto.setCount(Integer.parseInt(redisCacheRepository.getSenderFromRedis()) + 1);
-
-        //redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
-
-        if (messageDto.getCount()%5 == 1) {
-            redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
-        } else if (messageDto.getCount()%5 == 3) {
-            redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
-        } else {
-            System.out.println("messageDto.getMessage() = " + messageDto.getMessage());
-            redisCacheRepository.plusCount();
-            System.out.println("cache_data2 = " + redisCacheRepository.getSenderFromRedis());
-        }
-
+        redisPublisher.publish(redisCacheRepository.getTopic(messageDto.getRoomId()), messageDto);
     }
 
 }

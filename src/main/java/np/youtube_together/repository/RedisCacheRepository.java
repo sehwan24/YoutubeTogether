@@ -30,8 +30,6 @@ public class RedisCacheRepository {
     //public interface HashOperations<H,HK,HV>  해쉬 이름, 키, 밸류
     private Map<String, ChannelTopic> topics;
 
-    private static final String RECENT_MESSAGES_KEY = "RECENT_SENDERS"; // 리스트의 이름 변경
-    private static final int MAX_LIST_SIZE = 2; // 리스트의 최대 크기
 
 
 
@@ -60,16 +58,6 @@ public class RedisCacheRepository {
             topic = new ChannelTopic(roomId);
         redisMessageListenerContainer.addMessageListener(redisSubscriber, topic);
         topics.put(roomId, topic);
-    }
-
-
-    public String getSenderFromRedis() {
-        return (String) redisTemplate.opsForValue().get("COUNT_KEY");
-    }
-
-
-    public void plusCount() {
-        redisTemplate.opsForValue().set("COUNT_KEY", Integer.parseInt((String) redisTemplate.opsForValue().get("COUNT_KEY")) + 1);
     }
 
 
