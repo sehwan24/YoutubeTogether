@@ -13,7 +13,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:8080",
                         "http://localhost:3000",
                         "https://localhost:3000",
-                        "https://127.0.0.1:3000"
+                        "https://127.0.0.1:3000",
+                        "https://www.youtube.com"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
         ;

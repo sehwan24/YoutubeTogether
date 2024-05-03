@@ -9,7 +9,7 @@ import lombok.Setter;
 public class MessageDto {
 
     public enum MessageType {
-        ENTER, TALK, VIDEO
+        ENTER, TALK, VIDEO, URL
     }
 
     public enum RunningType {
