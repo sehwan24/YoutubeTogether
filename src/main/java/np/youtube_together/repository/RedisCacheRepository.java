@@ -12,6 +12,7 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,8 +51,9 @@ public class RedisCacheRepository {
         return opsHashTimeLine.values(TimeLine);
     }
 
-    public TimeLineDto findRoomTimeLineByVideoId(String videoId) {
-        return opsHashTimeLine.get(TimeLine, videoId);
+    public List<String> findRoomTimeLineByVideoId(String videoId) {
+        System.out.println("opsHashTimeLine = " + opsHashTimeLine.get(TimeLine, videoId).getTimeLines());
+        return opsHashTimeLine.get(TimeLine, videoId).getTimeLines();
     }
 
     //채팅방 Redis에 저장 근데 Dto를 저장해야할듯
@@ -72,7 +74,7 @@ public class RedisCacheRepository {
             opsHashTimeLine.put(TimeLine, videoId, updateTimeLineDto);
             return updateTimeLineDto;
         } else {
-            List<String> timeLines = null;
+            List<String> timeLines = new ArrayList<>();
             timeLines.add(timeLine);
             TimeLineDto timeLineDto = TimeLineDto.create(videoId, timeLines);
             opsHashTimeLine.put(TimeLine, videoId, timeLineDto);
